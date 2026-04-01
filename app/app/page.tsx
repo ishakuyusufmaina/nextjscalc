@@ -1,5 +1,4 @@
-                                                                                                                                                                                                            <div className="mb-5 rounded-3xl bg-black/20 border border-white/10 p-5 min-h-[170px] flex flex-col justify-end">
-  "use client";
+"use client";
 
 import { useState } from "react";
 import {
@@ -21,8 +20,8 @@ const buttons = [
 ];
 
 export default function CalculatorApp() {
-  const [expression, setExpression] = useState("");
-  const [result, setResult] = useState("0");
+  const [expression, setExpression] = useState(""); // Current input expression
+  const [result, setResult] = useState("0"); // Result display
 
   const iconMap = {
     "/": <FaDivide className="text-lg" />,
@@ -34,46 +33,52 @@ export default function CalculatorApp() {
     "⌫": <FaBackspace className="text-lg" />,
   };
 
+  // Evaluating the expression safely
   const safeEval = (expr) => {
     try {
-      if (!expr) return "0";
-      const sanitized = expr.replace(/×/g, "*").replace(/÷/g, "/");
+      if (!expr) return "0"; // If empty, return 0
+      const sanitized = expr.replace(/×/g, "*").replace(/÷/g, "/"); // Handle symbols like × and ÷
+      
+      // Sanitize and evaluate expression using Function()
       const value = Function(`return ${sanitized}`)();
-      if (value === Infinity || Number.isNaN(value)) return "Error";
-      return Number.isInteger(value)
-        ? String(value)
-        : String(Number(value.toFixed(8)));
-    } catch {
-      return "Error";
+      
+      if (value === Infinity || Number.isNaN(value)) {
+        return "Error"; // Handle division by zero or invalid expressions
+      }
+      return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(8))); // Format result to 8 decimal places
+    } catch (error) {
+      return "Error"; // Catch any other errors
     }
   };
 
+  // Handle button clicks
   const handleClick = (value) => {
     if (value === "C") {
-      setExpression("");
-      setResult("0");
+      setExpression(""); // Clear the input expression
+      setResult("0"); // Reset result
       return;
     }
 
     if (value === "⌫") {
-      const updated = expression.slice(0, -1);
+      const updated = expression.slice(0, -1); // Backspace removes last character
       setExpression(updated);
-      setResult(safeEval(updated));
+      setResult(safeEval(updated)); // Recalculate the result after backspace
       return;
     }
 
     if (value === "=") {
-      const finalResult = safeEval(expression);
+      const finalResult = safeEval(expression); // Evaluate expression when "=" is clicked
       setResult(finalResult);
-      if (finalResult !== "Error") setExpression(finalResult);
+      if (finalResult !== "Error") setExpression(finalResult); // Set final result as expression if valid
       return;
     }
 
-    const updated = expression + value;
+    const updated = expression + value; // Append new value to expression
     setExpression(updated);
-    setResult(safeEval(updated));
+    setResult(safeEval(updated)); // Update result based on new expression
   };
 
+  // Determine button styles based on the button type
   const getButtonStyle = (btn) => {
     if (["/", "*", "-", "+", "="].includes(btn)) {
       return "bg-gradient-to-br from-fuchsia-500 to-purple-600 text-white shadow-lg shadow-fuchsia-500/30";
@@ -94,10 +99,10 @@ export default function CalculatorApp() {
       <section className="relative w-full max-w-sm rounded-[2rem] border border-white/10 bg-white/10 backdrop-blur-2xl shadow-2xl shadow-black/30 p-5">
         <div className="mb-5 rounded-3xl bg-black/20 border border-white/10 p-5 min-h-[170px] flex flex-col justify-end">
           <p className="text-right text-slate-300 text-sm break-all min-h-[24px]">
-            {expression || "0"}
+            {expression || "0"} {/* Show expression */}
           </p>
           <h1 className="text-right text-white text-5xl font-bold tracking-tight break-all mt-3">
-            {result}
+            {result} {/* Show result */}
           </h1>
         </div>
 
@@ -108,45 +113,17 @@ export default function CalculatorApp() {
               onClick={() => handleClick(btn)}
               className={`h-16 rounded-2xl text-xl font-semibold transition-all duration-200 hover:scale-[1.04] active:scale-95 flex items-center justify-center ${getButtonStyle(
                 btn
-              )} ${btn === "0" ? "col-span-2" : ""}`}
+              )} ${btn === "0" ? "col-span-2" : ""}`} // Special style for '0' to span 2 columns
             >
-              {iconMap[btn] || btn}
+              {iconMap[btn] || btn} {/* Display icon or text */}
             </button>
           ))}
         </div>
 
         <div className="mt-5 text-center text-xs text-slate-300">
-          Built with Next.js + Tailwind + React Icons
+          Built with Next.js + Tailwind + React Icons {/* Info text */}
         </div>
       </section>
     </main>
   );
-}                                                                                                                                                                                                                                                                                                                                                    <p className="text-right text-slate-300 text-sm break-all min-h-[24px]">
-                                                                                                                                                                                                                                                                                                                                                                  {expression || "0"}
-                                                                                                                                                                                                                                                                                                                                                                            </p>
-                                                                                                                                                                                                                                                                                                                                                                                      <h1 className="text-right text-white text-5xl font-bold tracking-tight break-all mt-3">
-                                                                                                                                                                                                                                                                                                                                                                                                  {result}
-                                                                                                                                                                                                                                                                                                                                                                                                            </h1>
-                                                                                                                                                                                                                                                                                                                                                                                                                    </div>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                            <div className="grid grid-cols-4 gap-3">
-                                                                                                                                                                                                                                                                                                                                                                                                                                      {buttons.flat().map((btn, index) => (
-                                                                                                                                                                                                                                                                                                                                                                                                                                                  <button
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                key={index}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                              onClick={() => handleClick(btn)}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            className={`h-16 rounded-2xl text-xl font-semibold transition-all duration-200 hover:scale-[1.04] active:scale-95 flex items-center justify-center ${getButtonStyle(
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            btn
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          )} ${btn === "0" ? "col-span-2" : ""}`}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      >
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    {iconMap[btn] || btn}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ))}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </div>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <div className="mt-5 text-center text-xs text-slate-300">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Built with Next.js + Tailwind + React Icons
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </section>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      </main>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        );
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+}
