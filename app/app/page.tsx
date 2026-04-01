@@ -45,7 +45,7 @@ export default function CalculatorApp() {
 };
 
   // Handle button clicks
-  const handleClick = (value) => {
+  const handleClick = (value: string) => {
     if (value === "C") {
       setExpression(""); // Clear the input expression
       setResult("0"); // Reset result
@@ -72,7 +72,7 @@ export default function CalculatorApp() {
   };
 
   // Determine button styles based on the button type
-  const getButtonStyle = (btn) => {
+  const getButtonStyle = (btn: string) => {
     if (["/", "*", "-", "+", "="].includes(btn)) {
       return "bg-gradient-to-br from-fuchsia-500 to-purple-600 text-white shadow-lg shadow-fuchsia-500/30";
     }
