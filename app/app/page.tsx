@@ -36,12 +36,9 @@ export default function CalculatorApp() {
   const safeEval = (expr) => {
     try {
       if (!expr) return "0";
-
       const sanitized = expr.replace(/×/g, "*").replace(/÷/g, "/");
       const value = Function(`return ${sanitized}`)();
-
       if (value === Infinity || Number.isNaN(value)) return "Error";
-
       return Number.isInteger(value)
         ? String(value)
         : String(Number(value.toFixed(8)));
@@ -67,10 +64,7 @@ export default function CalculatorApp() {
     if (value === "=") {
       const finalResult = safeEval(expression);
       setResult(finalResult);
-
-      if (finalResult !== "Error") {
-        setExpression(finalResult);
-      }
+      if (finalResult !== "Error") setExpression(finalResult);
       return;
     }
 
@@ -83,11 +77,9 @@ export default function CalculatorApp() {
     if (["/", "*", "-", "+", "="].includes(btn)) {
       return "bg-gradient-to-br from-fuchsia-500 to-purple-600 text-white shadow-lg shadow-fuchsia-500/30";
     }
-
     if (["C", "%", "⌫"].includes(btn)) {
       return "bg-white/10 text-rose-200 border border-white/10";
     }
-
     return "bg-white/5 text-white border border-white/10";
   };
 
@@ -128,48 +120,7 @@ export default function CalculatorApp() {
       </section>
     </main>
   );
-}                                                                  try {
-                                                                        if (!expr) return "0";
-                                                                              const sanitized = expr.replace(/×/g, "*").replace(/÷/g, "/");
-                                                                                    const value = Function(`return ${sanitized}`)();
-
-                                                                                          if (value === Infinity || Number.isNaN(value)) return "Error";
-
-                                                                                                return Number.isInteger(value)
-                                                                                                        ? String(value)
-                                                                                                                : String(Number(value.toFixed(8)));
-                                                                                                                    } catch {
-                                                                                                                          return "Error";
-                                                                                                                              }
-                                                                                                                                };
-
-                                                                                                                                  const handleClick = (value) => {
-                                                                                                                                      if (value === "C") {
-                                                                                                                                            setExpression("");
-                                                                                                                                                  setResult("0");
-                                                                                                                                                        return;
-                                                                                                                                                            }
-
-                                                                                                                                                                if (value === "⌫") {
-                                                                                                                                                                      const updated = expression.slice(0, -1);
-                                                                                                                                                                            setExpression(updated);
-                                                                                                                                                                                  setResult(safeEval(updated));
-                                                                                                                                                                                        return;
-                                                                                                                                                                                            }
-
-                                                                                                                                                                                                if (value === "=") {
-                                                                                                                                                                                                      const finalResult = safeEval(expression);
-                                                                                                                                                                                                            setResult(finalResult);
-
-                                                                                                                                                                                                                  if (finalResult !== "Error") {
-                                                                                                                                                                                                                          setExpression(finalResult);
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                      return;
-                                                                                                                                                                                                                                          }
-
-                                                                                                                                                                                                                                              const updated = expression + value;
-                                                                                                                                                                                                                                                  setExpression(updated);
-                                                                                                                                                                                                                                                      setResult(safeEval(updated));
+}                                                                                                                                                                                                                                  setResult(safeEval(updated));
                                                                                                                                                                                                                                                         };
 
                                                                                                                                                                                                                                                           const getButtonStyle = (btn) => {
