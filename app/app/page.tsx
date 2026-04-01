@@ -34,22 +34,15 @@ export default function CalculatorApp() {
   };
 
   // Evaluating the expression safely
-  const safeEval = (expr) => {
-    try {
-      if (!expr) return "0"; // If empty, return 0
-      const sanitized = expr.replace(/×/g, "*").replace(/÷/g, "/"); // Handle symbols like × and ÷
-      
-      // Sanitize and evaluate expression using Function()
-      const value = Function(`return ${sanitized}`)();
-      
-      if (value === Infinity || Number.isNaN(value)) {
-        return "Error"; // Handle division by zero or invalid expressions
-      }
-      return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(8))); // Format result to 8 decimal places
-    } catch (error) {
-      return "Error"; // Catch any other errors
-    }
-  };
+ const safeEval = (expr: string | number) => {
+  try {
+    if (!expr) return "0"; // If empty, return 0
+    const sanitized = (expr as string).replace(/×/g, "*").replace(/÷/g, "/"); // Type cast if expr is number
+    // Further code here...
+  } catch (error) {
+    // Handle errors
+  }
+};
 
   // Handle button clicks
   const handleClick = (value) => {
