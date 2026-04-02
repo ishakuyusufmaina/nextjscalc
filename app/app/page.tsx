@@ -34,7 +34,32 @@ export default function CalculatorApp() {
   };
 
   // Evaluating the expression safely
- What's difference between react and nextjs
+ const safeEval = (expr: string | number): string => {
+  try {
+    if (!expr) return "0";
+
+    let sanitized = String(expr)
+      .replace(/×/g, "*")
+      .replace(/÷/g, "/")
+      .replace(/%/g, "/100");
+
+    if (!/^[0-9+\-*/().\s]+$/.test(sanitized)) {
+      return "Error";
+    }
+
+    if (/[+\-*/.]$/.test(sanitized)) {
+      return result;
+    }
+
+    const evalResult = Function(`"use strict"; return (${sanitized})`)();
+
+    if (!isFinite(evalResult)) return "Error";
+
+    return Number(evalResult.toFixed(10)).toString();
+  } catch (error) {
+    return "Error";
+  }
+};
 
   // Handle button clicks
   const handleClick = (value: string) => {
