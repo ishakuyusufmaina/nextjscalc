@@ -235,4 +235,15 @@ export default function CalculatorApp() {
                 btn
               )} ${btn === "0" ? "col-span-2" : ""}`}
             >
-              {isIconKey(btn
+              {isIconKey(btn) ? iconMap[btn] : btn}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-5 text-center text-xs text-slate-300">
+          Built with Next.js + Tailwind + React Icons
+        </div>
+      </section>
+    </main>
+  );
+  }
