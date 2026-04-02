@@ -34,15 +34,7 @@ export default function CalculatorApp() {
   };
 
   // Evaluating the expression safely
- const safeEval = (expr: string | number) => {
-  try {
-    if (!expr) return "0"; // If empty, return 0
-    const sanitized = (expr as string).replace(/×/g, "*").replace(/÷/g, "/"); // Type cast if expr is number
-    // Further code here...
-  } catch (error) {
-    // Handle errors
-  }
-};
+ What's difference between react and nextjs
 
   // Handle button clicks
   const handleClick = (value: string) => {
