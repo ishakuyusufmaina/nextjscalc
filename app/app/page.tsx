@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import {BorderTimer} from "@/components/BorderTimer";
 import type { ReactNode } from "react";
 import {
   FaBackspace,
@@ -210,6 +211,9 @@ export default function CalculatorApp() {
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_right,_#312e81,_#0f172a_45%,_#020617_100%)] flex items-center justify-center px-4 py-10 relative">
+     <BorderTimer startTime={15} onStart={() => console.log("start")} 
+       onFinish={() => console.log("done")}
+      >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-fuchsia-500/20 blur-3xl" />
         <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl" />
