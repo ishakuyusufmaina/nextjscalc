@@ -211,7 +211,7 @@ export default function CalculatorApp() {
 
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_right,_#312e81,_#0f172a_45%,_#020617_100%)] flex items-center justify-center px-4 py-10 relative">
-     <BorderTimer startTime={15} onStart={() => console.log("start")} 
+     <BorderTimer size={40} startTime={15} onStart={() => console.log("start")} 
        onFinish={() => console.log("done")}
       />
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
